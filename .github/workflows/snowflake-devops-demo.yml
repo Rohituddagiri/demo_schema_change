@@ -34,12 +34,12 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run Schema Change
         env:
-          SF_ACCOUNT: ${{ secrets.SF_ACCOUNT }}
+          SF_ACCOUNT: ${{ env_var(secrets.SF_ACCOUNT }}
           SF_USERNAME: ${{ secrets.SF_USERNAME }}
           SF_ROLE: ${{ secrets.SF_ROLE }}
           SF_WAREHOUSE: ${{ secrets.SF_WAREHOUSE }}
           SF_DATABASE: ${{ secrets.SF_DATABASE }}
-          SNOWFLAKE_PASSWORD: Rohit@007 
+          SNOWFLAKE_PASSWORD: ${{ secrets.SF_PASSWORD }} 
         run: |
           echo "GITHUD_WORKSPACE: $GITHUB_WORKSPACE"
           python --version
@@ -47,4 +47,4 @@ jobs:
           pip install schemachange
 
           echo "STEP 2: Running schemachange"
-          schemachange -f $GITHUB_WORKSPACE/dbscripts -a SF_ACCOUNT -u SF_USERNAME -r SF_ROLE -w SF_WAREHOUSE -d SF_DATABASE -c SF_DATABASE.SCHEMACHANGE.CHANGE_HISTORY --create-change-history-table
+          schemachange -f $GITHUB_WORKSPACE/dbscripts -a eo09760.ca-central-1.aws -u SAIROHIT -r ACCOUNTADMIN -w COMPUTE_WH -d DEMO_DB -c DEMO_DB.SCHEMACHANGE.CHANGE_HISTORY --create-change-history-table
